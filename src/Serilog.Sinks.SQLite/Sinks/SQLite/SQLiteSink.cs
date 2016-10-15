@@ -19,8 +19,8 @@ using Microsoft.Data.Sqlite;
 using Serilog.Core;
 using Serilog.Debugging;
 using Serilog.Events;
-using Serilog.Extensions;
 using Serilog.Sinks.Batch;
+using Serilog.Sinks.Extensions;
 
 namespace Serilog.Sinks.SQLite
 {
@@ -123,7 +123,7 @@ namespace Serilog.Sinks.SQLite
                                 : logEvent.Timestamp;
                             sqlCommand.Parameters["@level"].Value = logEvent.Level.ToString();
                             sqlCommand.Parameters["@exception"].Value = logEvent.Exception?.ToString() ?? string.Empty;
-                            sqlCommand.Parameters["@renderedMessage"].Value = logEvent.MessageTemplate.ToString();
+                            sqlCommand.Parameters["@renderedMessage"].Value = logEvent.RenderMessage(_formatProvider);
 
                             sqlCommand.Parameters["@properties"].Value = logEvent.Properties.Count > 0
                                 ? logEvent.Properties.Json()

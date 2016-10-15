@@ -1,4 +1,18 @@
-﻿using System;
+﻿// Copyright 2016 Zethian Inc.
+// 
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+// 
+//     http://www.apache.org/licenses/LICENSE-2.0
+// 
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Threading;
@@ -21,11 +35,7 @@ namespace Serilog.Sinks.Batch
 
         private bool _canStop;
 
-        protected BatchProvider(uint batchSize = 100) : this(batchSize, 1)
-        {
-        }
-
-        protected BatchProvider(uint batchSize, int nThreads = 1)
+        protected BatchProvider(uint batchSize = 100, int nThreads = 1)
         {
             _batchSize = batchSize;
             _logEventBatch = new List<LogEvent>();
